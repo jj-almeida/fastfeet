@@ -19,6 +19,10 @@ import authMiddleware from './app/middlewares/auth';
 const routes = new Router();
 const upload = multer(multerConfig);
 
+/**
+ * TODO: Checar padrao de rotas, como status e nomes no plural
+ */
+
 routes.post('/sessions', SessionController.store);
 
 routes.put(

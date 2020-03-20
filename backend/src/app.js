@@ -9,6 +9,9 @@ import routes from './routes';
 import sentryConfig from './config/sentry';
 
 import './database';
+/**
+ * TODO: Comentarios em todo codigo
+ */
 
 class App {
   constructor() {
