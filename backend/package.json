@@ -1,5 +1,5 @@
 {
-  "name": "fastfeet",
+  "name": "fastfeet-backend",
   "version": "1.0.0",
   "description": "Aplicação completa (Back-end, Front-end e Mobile) que é avaliada para emissão do Certificado do Bootcamp GoStack.",
   "main": "index.js",
