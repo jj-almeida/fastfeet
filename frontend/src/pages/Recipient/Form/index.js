@@ -1,7 +1,8 @@
 import React from 'react';
 
 // import { Container } from './styles';
+import Container from '~/components/Container';
 
 export default function RecipientForm() {
-  return <h1>RecipientForm</h1>;
+  return <Container>RecipientForm</Container>;
 }

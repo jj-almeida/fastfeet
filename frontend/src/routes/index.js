@@ -5,18 +5,16 @@ import Route from './Route';
 
 import SignIn from '~/pages/SignIn';
 
-import DeliveryList from '~/pages/DeliveryList';
-import DeliveryForm from '~/pages/DeliveryForm';
-import DeliveryEdit from '~/pages/DeliveryEdit';
-import DeliverymanList from '~/pages/DeliverymanList';
-import DeliverymanForm from '~/pages/DeliverymanForm';
-import DeliverymanEdit from '~/pages/DeliverymanEdit';
-import RecipientList from '~/pages/RecipientList';
-import RecipientForm from '~/pages/RecipientForm';
-import RecipientEdit from '~/pages/RecipientEdit';
-import ProblemDelivery from '~/pages/ProblemDelivery';
+import {
+  DeliveryList,
+  DeliveryFormAdd,
+  DeliveryFormEdit,
+} from '~/pages/Delivery';
+import { DeliverymanList, DeliverymanForm } from '~/pages/Deliveryman';
+import { RecipientList, RecipientForm } from '~/pages/Recipient';
+import { ProblemList } from '~/pages/Problem';
 /**
- * TODO: Checar caminhos. Checar como passa parametro
+ * TODO: Checar como passa parametro
  */
 
 export default function Routes() {
@@ -24,16 +22,24 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/deliverylist" component={DeliveryList} isPrivate />
-      <Route path="/deliveryform" component={DeliveryForm} isPrivate />
-      <Route path="/deliveryedit" component={DeliveryEdit} isPrivate />
-      <Route path="/deliverymanlist" component={DeliverymanList} isPrivate />
-      <Route path="/deliverymanform" component={DeliverymanForm} isPrivate />
-      <Route path="/deliverymanedit" component={DeliverymanEdit} isPrivate />
-      <Route path="/recipientlist" component={RecipientList} isPrivate />
-      <Route path="/recipientform" component={RecipientForm} isPrivate />
-      <Route path="/recipientedit" component={RecipientEdit} isPrivate />
-      <Route path="/problemdelivery" component={ProblemDelivery} isPrivate />
+      <Route path="/deliveries" exact component={DeliveryList} isPrivate />
+      <Route path="/deliveries/new" component={DeliveryFormAdd} isPrivate />
+      <Route
+        path="/deliveries/edit/:id"
+        component={DeliveryFormEdit}
+        isPrivate
+      />
+      <Route path="/deliverymans" exact component={DeliverymanList} isPrivate />
+      <Route path="/deliverymans/new" component={DeliverymanForm} isPrivate />
+      <Route
+        path="/deliverymans/edit/:id"
+        component={DeliverymanForm}
+        isPrivate
+      />
+      <Route path="/recipients" exact component={RecipientList} isPrivate />
+      <Route path="/recipients/new" component={RecipientForm} isPrivate />
+      <Route path="/recipients/edit/:id" component={RecipientForm} isPrivate />
+      <Route path="/problems" exact component={ProblemList} isPrivate />
     </Switch>
   );
 }
