@@ -10,7 +10,11 @@ import {
   DeliveryFormAdd,
   DeliveryFormEdit,
 } from '~/pages/Delivery';
-import { DeliverymanList, DeliverymanForm } from '~/pages/Deliveryman';
+import {
+  DeliverymanList,
+  DeliverymanFormAdd,
+  DeliverymanFormEdit,
+} from '~/pages/Deliveryman';
 import { RecipientList, RecipientForm } from '~/pages/Recipient';
 import { ProblemList } from '~/pages/Problem';
 /**
@@ -30,10 +34,14 @@ export default function Routes() {
         isPrivate
       />
       <Route path="/deliverymans" exact component={DeliverymanList} isPrivate />
-      <Route path="/deliverymans/new" component={DeliverymanForm} isPrivate />
+      <Route
+        path="/deliverymans/new"
+        component={DeliverymanFormAdd}
+        isPrivate
+      />
       <Route
         path="/deliverymans/edit/:id"
-        component={DeliverymanForm}
+        component={DeliverymanFormEdit}
         isPrivate
       />
       <Route path="/recipients" exact component={RecipientList} isPrivate />

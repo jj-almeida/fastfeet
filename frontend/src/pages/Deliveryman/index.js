@@ -1,4 +1,5 @@
 import DeliverymanList from './List';
-import DeliverymanForm from './Form';
+import DeliverymanFormAdd from './Form/Add';
+import DeliverymanFormEdit from './Form/Edit';
 
-export { DeliverymanList, DeliverymanForm };
+export { DeliverymanList, DeliverymanFormAdd, DeliverymanFormEdit };
