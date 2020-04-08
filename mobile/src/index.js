@@ -1,8 +1,17 @@
+import 'react-native-gesture-handler';
+
 import React from 'react';
-import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import Routes from './routes';
+
+import './config/ReactotronConfig';
 
 // import { Container } from './styles';
 
-export default function src() {
-  return <View />;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
+  );
 }
