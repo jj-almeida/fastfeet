@@ -79,6 +79,30 @@ class DeliverymanController {
     return res.status(200).json(deliverymans);
   }
 
+  async show(req, res) {
+    const { page = 1 } = req.query;
+    const { id } = req.params;
+
+    const deliveryman = await Deliveryman.findOne({
+      where: { id },
+      attributes: ['id', 'name', 'email', 'avatar_id', 'created_at'],
+      limit: 20,
+      offset: (page - 1) * 20,
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    if (!deliveryman)
+      return res.status(400).json({ error: 'Deliveryman not found' });
+
+    return res.status(200).json(deliveryman);
+  }
+
   async delete(req, res) {
     const deliveryman = await Deliveryman.findByPk(req.params.id);
 

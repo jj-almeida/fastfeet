@@ -43,6 +43,8 @@ routes.get(
 
 routes.post('/delivery/:id/problems', DeliveryProblemController.store);
 
+routes.get('/deliveryman/:id', DeliverymanController.show);
+
 routes.use(authMiddleware);
 
 routes.post('/recipients', RecipientController.store);

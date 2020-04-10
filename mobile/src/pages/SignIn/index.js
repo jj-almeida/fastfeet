@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import logo from '~/assets/logo.png';
 
 import { Background, Container, Form, FormInput, SubmitButton } from './styles';
+import { signInRequest } from '~/store/modules/auth/actions';
 
 export default function SignIn() {
-  const loading = false; // useSelector(state => state.auth.loading);
+  const dispatch = useDispatch();
+  const [id, setId] = useState('');
+
+  // const formRef = useRef(null);
+
+  const loading = useSelector((state) => state.auth.loading);
 
   function handleSubmit() {
-    // dispatch(signInRequest(id));
+    dispatch(signInRequest(id));
   }
 
   return (
@@ -23,10 +30,10 @@ export default function SignIn() {
             autoCapitalize="none"
             placeholder="Informe seu ID de cadastro"
             returnKeyType="send"
-            // onSubmitEditing={handleSubmit}
+            onSubmitEditing={handleSubmit}
             // onSubmitEditing={() => passwordRef.current.focus()}
-            // value={id}
-            // onChangeText={setId}
+            value={id}
+            onChangeText={setId}
           />
 
           <SubmitButton loading={loading} onPress={handleSubmit}>
