@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard';
 import DetailsDelivery from './pages/Dashboard/DetailsDelivery';
 import NewProblemDelivery from './pages/Dashboard/NewProblemDelivery';
 import ProblemsDelivery from './pages/Dashboard/ProblemsDelivery';
+import ConfirmDelivery from './pages/Dashboard/ConfirmDelivery';
 import Profile from './pages/Profile';
 
 Icon.loadFont();
@@ -74,6 +75,21 @@ function NewStack() {
         component={ProblemsDelivery}
         options={{
           headerTitle: 'Visualizar problemas',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerTintColor: '#fff',
+          headerLeftContainerStyle: {
+            left: 10,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="ConfirmDelivery"
+        component={ConfirmDelivery}
+        options={{
+          headerTitle: 'Confirmar entrega',
           headerBackTitleVisible: false,
           headerTransparent: true,
           headerTitleStyle: { fontWeight: 'bold' },

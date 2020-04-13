@@ -28,7 +28,7 @@ import {
 export default function DetailsDelivery({ route }) {
   const { navigate } = useNavigation();
   const { data } = route.params;
-  // console.log(data);
+  console.log(data);
 
   const [status, setStatus] = useState('');
   // const [startDate, setStartDate] = useState({ start_date: data.start_date });
@@ -71,18 +71,19 @@ export default function DetailsDelivery({ route }) {
 
   function handleNewProblem() {
     // if (data.end_date) return;
-    navigate('NewProblemDelivery', { delivery_id: id });
+    navigate('NewProblemDelivery', { delivery_id: data.id });
   }
 
   function handleShowProblems() {
-    navigate('ProblemsDelivery', { delivery_id: id });
+    navigate('ProblemsDelivery', { delivery_id: data.id });
   }
 
   function handleConfirmDelivery() {
-    navigate('ConfirmDelivery', { delivery_id: id });
+    navigate('ConfirmDelivery', { delivery_id: data.id });
   }
 
   // TODO:Esmaecer botoes
+  // TODO: Componetizar Header
   return (
     <Container>
       <StatusBar barStyle="light-content" backgroundColor="#7d40e7" />
@@ -142,19 +143,20 @@ export default function DetailsDelivery({ route }) {
             <TextAction>Visualizar Problemas</TextAction>
           </ActionButton>
 
-          {/* <ActionButton onPress={() => handleDelivery()}>
-            <Icon name="highlight-off" color="#E74040" size={24} />
-            <TextAction>33Informar Problema</TextAction>
-          </ActionButton> */}
-
+          {/* TODO: If ternario */}
           {data.start_date ? (
             <ActionButton onPress={() => handleConfirmDelivery()}>
-              <Icon name="checkcircleo" color="#7D40E7" size={24} />
+              <Icon
+                name="check-circle"
+                backgroundColor="#eee"
+                color="#7D40E7"
+                size={24}
+              />
               <TextAction>Confirmar entrega </TextAction>
             </ActionButton>
           ) : (
             <ActionButton onPress={() => handleDelivery()}>
-              <Icon name="add-circle" color="#7D40E7" size={24} />
+              <Icon name="radio-button-unchecked" color="#7D40E7" size={24} />
               <TextAction>Retirar entrega</TextAction>
             </ActionButton>
           )}
