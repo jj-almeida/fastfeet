@@ -14,7 +14,7 @@ class DeliveryOpenControler {
     }
 
     const deliveries = await Delivery.findAll({
-      attributes: ['id', 'recipient_id', 'product'],
+      attributes: ['id', 'recipient_id', 'product', 'created_at', 'start_date'],
       limit: 20,
       offset: (page - 1) * 20,
       where: { deliveryman_id, end_date: null, canceled_at: null },

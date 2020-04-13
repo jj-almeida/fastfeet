@@ -19,9 +19,9 @@ export default function Profile() {
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Avatar
         source={{
-          uri: profile.avatar.url
-            ? profile.avatar.url
-            : `https://avatars.dicebear.com/v2/initials/${profile.name}.svg`,
+          uri: profile.avatar
+            ? `http://10.0.2.2:3333/files/${profile.avatar.path}`
+            : `https://ui-avatars.com/api/?name=${profile.name}`,
         }}
       />
 
@@ -34,6 +34,7 @@ export default function Profile() {
       <Label>Data de cadastro</Label>
       <Text>{profile.registeredDate}</Text>
 
+      {/* TODO: Arrumar logout */}
       <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
     </Container>
   );

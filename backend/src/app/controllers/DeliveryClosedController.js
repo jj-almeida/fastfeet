@@ -17,7 +17,14 @@ class DeliveryClosedController {
     }
 
     const deliveries = await Delivery.findAll({
-      attributes: ['id', 'recipient_id', 'product', 'start_date', 'end_date'],
+      attributes: [
+        'id',
+        'recipient_id',
+        'product',
+        'start_date',
+        'end_date',
+        'created_at',
+      ],
       limit: 20,
       offset: (page - 1) * 20,
       where: { deliveryman_id, end_date: { [Op.ne]: null } },

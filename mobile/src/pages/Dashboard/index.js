@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { signOut } from '~/store/modules/auth/actions';
+
+import DeliveryCard from '~/components/DeliveryCard';
+import api from '~/services/api';
 
 import {
   Container,
@@ -18,11 +21,53 @@ import {
   Title,
   Tab,
   TabText,
+  List,
 } from './styles';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.user.profile);
+
+  const [deliveries, setDeliveries] = useState([]);
+  const [delivered, setDelivered] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    async function loadDeliveries() {
+      if (delivered) {
+        const response = await api.get(
+          `deliverymans/${profile.id}/deliveriesclosed/`
+        );
+
+        setDeliveries(response.data);
+      }
+
+      if (!delivered) {
+        const response = await api.get(
+          `deliverymans/${profile.id}/deliveriesopen/`
+        );
+
+        setDeliveries(response.data);
+      }
+
+      setRefresh(false);
+    }
+
+    loadDeliveries();
+  }, [delivered, profile.id, refresh]);
+
+  async function loadPage() {
+    setRefresh(true);
+  }
+
+  async function deliveriesFilter(data) {
+    if (data) {
+      setDelivered(true);
+    }
+    if (!data) {
+      setDelivered(false);
+    }
+  }
 
   function handleLogout() {
     dispatch(signOut());
@@ -35,12 +80,12 @@ export default function Dashboard() {
         <Avatar
           source={{
             uri: profile.avatar
-              ? profile.avatar.url
-              : `https://avatars.dicebear.com/v2/initials/${profile.name}.svg`,
+              ? `http://10.0.2.2:3333/files/${profile.avatar.path}`
+              : `https://ui-avatars.com/api/?name=${profile.name}`,
           }}
         />
         <NameContainer>
-          <Welcome>Bem vindo de volta</Welcome>
+          <Welcome>Bem vindo de volta,</Welcome>
           <Name>{profile.name}</Name>
         </NameContainer>
 
@@ -53,28 +98,53 @@ export default function Dashboard() {
         <TabContainer>
           <Title>Entregas</Title>
 
+          {/* TODO: Jogar propst para styles */}
           <TabBar>
-            {/* <Overlay style={{ transform: [{ translateX }] }} /> */}
             <Tab
-            // onPress={() => handleSlide(0, xTabTwo, 'pending')}
-            // onLayout={event => setXTabOne(event.nativeEvent.layout.x)}
+              onPress={() => {
+                deliveriesFilter(false);
+              }}
             >
-              <TabText style={{ color: '#7d40e7' }}>Pendentes</TabText>
+              <TabText
+                style={{
+                  color: !delivered ? '#7D40E7' : '#999',
+                  fontWeight: 'bold',
+                  fontSize: 12,
+                  textAlign: 'right',
+                }}
+              >
+                Pendentes
+              </TabText>
             </Tab>
 
             <Tab
-            // onPress={() => handleSlide(1, xTabOne, 'finish')}
-            // onLayout={event => setXTabOne(event.nativeEvent.layout.x)}
+              onPress={() => {
+                deliveriesFilter(true);
+              }}
             >
-              <TabText style={{ color: '#999999' }}>Entregues</TabText>
+              <TabText
+                style={{
+                  color: delivered ? '#7D40E7' : '#999',
+                  fontWeight: 'bold',
+                  fontSize: 12,
+                  textAlign: 'right',
+                  paddingRight: 5,
+                }}
+              >
+                Entregues
+              </TabText>
             </Tab>
           </TabBar>
         </TabContainer>
+
+        <List
+          data={deliveries}
+          refreshing={refresh}
+          onRefresh={loadPage}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item: data }) => <DeliveryCard data={data} />}
+        />
       </Body>
-
-      {/* <TopNavigation onChange={setActiveTab} /> */}
-
-      {/* {activeTab === 'pending' ? <Pendings /> : <Deliveries />} */}
     </Container>
   );
 }

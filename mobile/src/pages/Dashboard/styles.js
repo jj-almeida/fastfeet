@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 // import { Platform } from 'react-native';
-import { Animated } from 'react-native';
+// import { Animated } from 'react-native';
 
 // import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 // import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
@@ -41,7 +41,7 @@ export const Name = styled.Text`
 `;
 
 export const Body = styled.View`
-  margin: 0 15px;
+  margin: 0 0px;
 `;
 
 export const TabContainer = styled.View`
@@ -63,20 +63,20 @@ export const TabBar = styled.View`
   position: relative;
 `;
 
-export const Overlay = styled(Animated.View)`
-  position: absolute;
-  height: 10%;
-  width: 50%;
-  background: #7d40e7;
-  bottom: 0;
-  left: 0;
-`;
+// export const Overlay = styled(Animated.View)`
+//   position: absolute;
+//   /* height: 10%;
+//   width: 50%; */
+//   background: #7d40e7;
+//   bottom: 0;
+//   left: 0;
+// `;
 
 export const Tab = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   flex: 1;
-  margin-right: 5px;
+  /* margin-right: 5px; */
 `;
 
 export const TabText = styled.Text`
@@ -84,3 +84,12 @@ export const TabText = styled.Text`
   font-weight: bold;
   padding: 5px 0;
 `;
+
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+})``;

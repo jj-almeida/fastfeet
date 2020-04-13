@@ -27,11 +27,11 @@ export default function SignIn() {
           <FormInput
             icon="person-outline"
             autoCorrect={false}
+            keyboardType="numeric"
             autoCapitalize="none"
             placeholder="Informe seu ID de cadastro"
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
-            // onSubmitEditing={() => passwordRef.current.focus()}
             value={id}
             onChangeText={setId}
           />

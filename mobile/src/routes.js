@@ -8,14 +8,86 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
+import DetailsDelivery from './pages/Dashboard/DetailsDelivery';
+import NewProblemDelivery from './pages/Dashboard/NewProblemDelivery';
+import ProblemsDelivery from './pages/Dashboard/ProblemsDelivery';
 import Profile from './pages/Profile';
 
 Icon.loadFont();
 
-export default function createRouter(isSigned = false) {
-  const Stack = createStackNavigator();
-  const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
+// TODO: Checar todas as rotas
+function NewStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerTitleAlign: 'center',
+      }}
+    >
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Entregas',
+          tabBarIcon: ({ color }) => (
+            <Icon name="menu" size={24} color={color} />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="DetailsDelivery"
+        component={DetailsDelivery}
+        options={{
+          headerTitle: 'Detalhes da encomenda',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerTintColor: '#fff',
+          headerLeftContainerStyle: {
+            left: 10,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="NewProblemDelivery"
+        component={NewProblemDelivery}
+        options={{
+          headerTitle: 'Detalhes do problema',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerTintColor: '#fff',
+          headerLeftContainerStyle: {
+            left: 10,
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="ProblemsDelivery"
+        component={ProblemsDelivery}
+        options={{
+          headerTitle: 'Visualizar problemas',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerTintColor: '#fff',
+          headerLeftContainerStyle: {
+            left: 10,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+export default function createRouter(isSigned = false) {
   return !isSigned ? (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="SignIn" component={SignIn} />
@@ -38,13 +110,23 @@ export default function createRouter(isSigned = false) {
       }}
       headerMode="none"
     >
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Dashboard"
         component={Dashboard}
         options={{
           tabBarLabel: 'Entregas',
           tabBarIcon: ({ color }) => (
             <Icon name="menu" size={24} color={color} />
+          ),
+        }}
+      /> */}
+      <Tab.Screen
+        name="Dashboard"
+        component={NewStack}
+        options={{
+          tabBarLabel: 'Entregas',
+          tabBarIcon: ({ color }) => (
+            <Icon name="reorder" size={28} color={color} />
           ),
         }}
       />
