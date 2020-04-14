@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
@@ -10,7 +11,9 @@ import RegisterDeliveryMail from '../jobs/RegisterDeliveryMail';
 
 class DeliveryController {
   async index(req, res) {
-    const { page = 1 } = req.query;
+    const { page = 1, q } = req.query;
+
+    const productWhere = q ? { product: { [Op.iLike]: `%${q}%` } } : {};
 
     const deliveries = await Delivery.findAll({
       attributes: [
@@ -23,6 +26,7 @@ class DeliveryController {
         'start_date',
         'end_date',
       ],
+      where: productWhere,
       limit: 20,
       offset: (page - 1) * 20,
       include: [
@@ -65,18 +69,18 @@ class DeliveryController {
     const schemaIsValid = await schema.isValid(req.body);
 
     if (!schemaIsValid) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const recipient = await Recipient.findByPk(req.body.recipient_id);
     const deliveryman = await Deliveryman.findByPk(req.body.deliveryman_id);
 
     if (!recipient) {
-      return res.status(401).json({ error: 'Recipient does not exist.' });
+      return res.status(404).json({ error: 'Recipient does not exist.' });
     }
 
     if (!deliveryman) {
-      return res.status(401).json({ error: 'Deliveryman does not exist.' });
+      return res.status(404).json({ error: 'Deliveryman does not exist.' });
     }
 
     const {
@@ -120,7 +124,7 @@ class DeliveryController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation Fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const { id } = req.params;
@@ -128,7 +132,7 @@ class DeliveryController {
     const delivery = await Delivery.findByPk(id);
 
     if (!delivery) {
-      return res.status(401).json({ error: 'Delivery does not exist' });
+      return res.status(404).json({ error: 'Delivery does not exist.' });
     }
 
     const {
@@ -153,38 +157,15 @@ class DeliveryController {
   }
 
   async delete(req, res) {
-    // const schema = Yup.object().shape({
-    //   id: Yup.number()
-    //     .required()
-    //     .min(1)
-    //     .positive(),
-    // });
-
-    // const schemaIsValid = await schema.isValid(req.body);
-
-    // if (!schemaIsValid) {
-    //   return res.status(400).json({ error: 'Validation fails' });
-    // }
-
     const delivery = await Delivery.findByPk(req.params.id);
 
     if (!delivery) {
-      return res.status(401).json({ error: 'Delivery does not exist.' });
+      return res.status(404).json({ error: 'Delivery does not exist.' });
     }
-
-    /**
-     * TODO: Checar esse if
-     */
-
-    // if (delivery.start_date) {
-    //   return res.status(401).json({
-    //     error: `Cannot delete delivery because delivery has already been withdrawn.`,
-    //   });
-    // }
 
     await delivery.destroy();
 
-    return res.json();
+    return res.status(204).send();
   }
 }
 

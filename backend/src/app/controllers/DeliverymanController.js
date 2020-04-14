@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
@@ -13,7 +14,15 @@ class DeliverymanController {
     const schemaIsValid = await schema.isValid(req.body);
 
     if (!schemaIsValid) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
+    const emailExists = await Deliveryman.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (emailExists) {
+      return res.status(409).json({ error: 'Deliveryman already exists.' });
     }
 
     const { id, name, email } = await Deliveryman.create(req.body);
@@ -32,7 +41,7 @@ class DeliverymanController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation Fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const { id } = req.params;
@@ -41,14 +50,14 @@ class DeliverymanController {
     const deliveryman = await Deliveryman.findByPk(id);
 
     if (!deliveryman) {
-      return res.status(401).json({ error: 'Deliveryman does not exist' });
+      return res.status(404).json({ error: 'Deliveryman does not exists.' });
     }
 
     if (email && email !== deliveryman.email) {
       const emailExists = await Deliveryman.findOne({ where: { email } });
 
       if (emailExists) {
-        return res.status(400).json({ erros: 'Deliveryman already exists' });
+        return res.status(409).json({ error: 'Deliveryman already exists.' });
       }
     }
 
@@ -61,10 +70,13 @@ class DeliverymanController {
   }
 
   async index(req, res) {
-    const { page = 1 } = req.query;
+    const { page = 1, q } = req.query;
+
+    const nameWhere = q ? { name: { [Op.iLike]: `%${q}%` } } : {};
 
     const deliverymans = await Deliveryman.findAll({
       attributes: ['id', 'name', 'email', 'avatar_id'],
+      where: nameWhere,
       limit: 20,
       offset: (page - 1) * 20,
       include: [
@@ -80,14 +92,11 @@ class DeliverymanController {
   }
 
   async show(req, res) {
-    const { page = 1 } = req.query;
     const { id } = req.params;
 
     const deliveryman = await Deliveryman.findOne({
       where: { id },
       attributes: ['id', 'name', 'email', 'avatar_id', 'created_at'],
-      limit: 20,
-      offset: (page - 1) * 20,
       include: [
         {
           model: File,
@@ -98,7 +107,7 @@ class DeliverymanController {
     });
 
     if (!deliveryman)
-      return res.status(400).json({ error: 'Deliveryman not found' });
+      return res.status(404).json({ error: 'Deliveryman not found.' });
 
     return res.status(200).json(deliveryman);
   }
@@ -107,12 +116,12 @@ class DeliverymanController {
     const deliveryman = await Deliveryman.findByPk(req.params.id);
 
     if (!deliveryman) {
-      return res.status(401).json({ error: 'Deliveryman does not exist' });
+      return res.status(404).json({ error: 'Deliveryman does not exist.' });
     }
 
     await deliveryman.destroy();
 
-    return res.json();
+    return res.status(204).send();
   }
 }
 

@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Recipient from '../models/Recipient';
 
@@ -17,7 +18,7 @@ class RecipientController {
     const schemaIsValid = await schema.isValid(req.body);
 
     if (!schemaIsValid) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const {
@@ -48,7 +49,7 @@ class RecipientController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation Fails' });
+      return res.status(400).json({ error: 'Validation Fails.' });
     }
 
     const { id } = req.params;
@@ -56,7 +57,7 @@ class RecipientController {
     const recipient = await Recipient.findByPk(id);
 
     if (!recipient) {
-      return res.status(401).json({ error: 'Recipient does not exist' });
+      return res.status(404).json({ error: 'Recipient does not exist.' });
     }
 
     const {
@@ -78,6 +79,66 @@ class RecipientController {
       city,
       postalCode,
     });
+  }
+
+  async index(req, res) {
+    const { page = 1, q } = req.query;
+
+    const nameWhere = q ? { name: { [Op.iLike]: `%${q}%` } } : {};
+
+    const recipients = await Recipient.findAll({
+      attributes: [
+        'id',
+        'name',
+        'street',
+        'number',
+        'complement',
+        'state',
+        'city',
+        'postal_code',
+      ],
+      where: nameWhere,
+      limit: 20,
+      offset: (page - 1) * 20,
+    });
+
+    return res.status(200).json(recipients);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const recipient = await Recipient.findOne({
+      where: { id },
+      attributes: [
+        'id',
+        'name',
+        'street',
+        'number',
+        'complement',
+        'state',
+        'city',
+        'postal_code',
+      ],
+    });
+
+    if (!recipient) {
+      return res.status(404).json({ error: 'Recipient not found.' });
+    }
+
+    return res.status(200).json(recipient);
+  }
+
+  async delete(req, res) {
+    const recipient = await Recipient.findByPk(req.params.id);
+
+    if (!recipient) {
+      return res.status(404).json({ error: 'Recipient does not exist.' });
+    }
+
+    await recipient.destroy();
+
+    return res.status(204).send();
   }
 }
 

@@ -25,14 +25,11 @@ class DeliveryProblemController {
   }
 
   async show(req, res) {
-    const { page = 1 } = req.query;
     const delivery_id = req.params.id;
 
     const deliveries = await DeliveryProblem.findAll({
       where: { delivery_id },
       attributes: ['id', 'delivery_id', 'description', 'created_at'],
-      limit: 20,
-      offset: (page - 1) * 20,
       include: [
         {
           model: Delivery,
@@ -53,7 +50,7 @@ class DeliveryProblemController {
     const schemaIsValid = await schema.isValid(req.body);
 
     if (!schemaIsValid) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const delivery_id = req.params.id;
@@ -70,8 +67,8 @@ class DeliveryProblemController {
 
     if (!delivery) {
       return res
-        .status(401)
-        .json({ error: 'Delivery does not exist or not in progress' });
+        .status(400)
+        .json({ error: 'Delivery does not exist or not in progress.' });
     }
 
     const { description } = req.body;
@@ -81,7 +78,7 @@ class DeliveryProblemController {
       description,
     });
 
-    return res.status(200).json({ delivery_id, description, created_at });
+    return res.status(201).json({ delivery_id, description, created_at });
   }
 }
 

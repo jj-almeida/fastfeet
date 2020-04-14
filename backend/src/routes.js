@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
+
 import multerConfig from './config/multer';
 
 import SessionController from './app/controllers/SessionController';
@@ -18,10 +19,6 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
-
-/**
- * TODO: Checar padrao de rotas, como status e nomes no plural
- */
 
 routes.post('/sessions', SessionController.store);
 
@@ -48,14 +45,14 @@ routes.get('/deliveryman/:id', DeliverymanController.show);
 
 routes.use(authMiddleware);
 
+routes.get('/recipients', RecipientController.index);
+routes.get('/recipient/:id', RecipientController.show);
 routes.post('/recipients', RecipientController.store);
 routes.put('/recipients/:id', RecipientController.update);
+routes.delete('/recipients/:id', RecipientController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
-/**
- * TODO: Rotas no plural
- */
 routes.post('/deliveryman', DeliverymanController.store);
 routes.put('/deliveryman/:id', DeliverymanController.update);
 routes.get('/deliveryman/', DeliverymanController.index);
@@ -67,7 +64,6 @@ routes.put('/deliveries/:id', DeliveryController.update);
 routes.delete('/deliveries/:id', DeliveryController.delete);
 
 routes.get('/deliveries/problems', DeliveryProblemController.index);
-// routes.get('/delivery/:id/problems', DeliveryProblemController.show);
 
 routes.delete('/problem/:id/cancel-delivery', DeliveryCancelController.delete);
 

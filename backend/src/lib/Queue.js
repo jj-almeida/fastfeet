@@ -1,4 +1,5 @@
 import Bee from 'bee-queue';
+
 import RegisterDeliveryMail from '../app/jobs/RegisterDeliveryMail';
 import CancelDeliveryMail from '../app/jobs/CancelDeliveryMail';
 import redisConfig from '../config/redis';
@@ -34,10 +35,6 @@ class Queue {
       bee.on('failed', this.handleFailure).process(handle);
     });
   }
-
-  /**
-   * TODO: Tirar console.log
-   */
 
   handleFailure(job, err) {
     console.log(`Queue ${job.queue.name}: FAILED`, err);

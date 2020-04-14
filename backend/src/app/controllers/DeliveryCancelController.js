@@ -15,7 +15,7 @@ class DeliveryCancelController {
     const deliveryProblem = await DeliveryProblem.findByPk(req.params.id);
 
     if (!deliveryProblem) {
-      return res.status(401).json({ error: 'Invalid delivery problem' });
+      return res.status(400).json({ error: 'Invalid delivery problem.' });
     }
 
     const delivery = await Delivery.findOne({

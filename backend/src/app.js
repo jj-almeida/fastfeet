@@ -6,13 +6,10 @@ import cors from 'cors';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
 import 'express-async-errors';
+
 import routes from './routes';
 import sentryConfig from './config/sentry';
-
 import './database';
-/**
- * TODO: Comentarios em todo codigo
- */
 
 class App {
   constructor() {

@@ -14,7 +14,7 @@ class DeliveryEndController {
     const schemaIsValid = await schema.isValid(req.body);
 
     if (!schemaIsValid) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const deliveryman_id = req.params.id;
@@ -23,7 +23,7 @@ class DeliveryEndController {
     const deliveryman = await Deliveryman.findByPk(deliveryman_id);
 
     if (!deliveryman) {
-      return res.status(401).json({ error: 'Deliveryman does not exist.' });
+      return res.status(404).json({ error: 'Deliveryman does not exist.' });
     }
 
     const delivery = await Delivery.findOne({
@@ -37,8 +37,8 @@ class DeliveryEndController {
 
     if (!delivery) {
       return res
-        .status(401)
-        .json({ error: 'Delivery does not exist or already finished' });
+        .status(400)
+        .json({ error: 'Delivery does not exist or already finished.' });
     }
 
     const { originalname: name, filename: path } = req.file;

@@ -82,7 +82,7 @@ export default function DetailsDelivery({ route }) {
     navigate('ConfirmDelivery', { delivery_id: data.id });
   }
 
-  // TODO:Esmaecer botoes
+  // TODO:Esmaecer botoes ou retornar com if acima
   // TODO: Componetizar Header
   return (
     <Container>

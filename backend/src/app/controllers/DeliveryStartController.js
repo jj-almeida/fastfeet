@@ -22,7 +22,7 @@ class DeliveryStartController {
     const schemaIsValid = await schema.isValid(req.body);
 
     if (!schemaIsValid) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const deliveryman_id = req.params.id;
@@ -31,7 +31,7 @@ class DeliveryStartController {
     const deliveryman = await Deliveryman.findByPk(deliveryman_id);
 
     if (!deliveryman) {
-      return res.status(401).json({ error: 'Deliveryman does not exist.' });
+      return res.status(404).json({ error: 'Deliveryman does not exist.' });
     }
 
     const delivery = await Delivery.findOne({
@@ -46,8 +46,8 @@ class DeliveryStartController {
 
     if (!delivery) {
       return res
-        .status(401)
-        .json({ error: 'Delivery does not exist or already started' });
+        .status(400)
+        .json({ error: 'Delivery does not exist or already started.' });
     }
 
     const startDate = new Date();
@@ -64,8 +64,8 @@ class DeliveryStartController {
 
     if (countDeliveries.length >= 5) {
       return res
-        .status(401)
-        .json({ error: 'You can not take more than 5 deliveries per day' });
+        .status(422)
+        .json({ error: 'You can not take more than 5 deliveries per day.' });
     }
 
     // Check hour between 8h and 18h
@@ -73,7 +73,7 @@ class DeliveryStartController {
     const endHour = setSeconds(setMinutes(setHours(startDate, 18), 0), 0);
 
     if (!(isBefore(startDate, endHour) && isAfter(startDate, startHour))) {
-      return res.status(401).json({ error: 'Invalid hour' });
+      return res.status(422).json({ error: 'Invalid hour.' });
     }
 
     const { id, product, start_date } = await delivery.update({

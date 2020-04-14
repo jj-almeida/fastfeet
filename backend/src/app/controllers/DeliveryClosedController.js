@@ -13,7 +13,7 @@ class DeliveryClosedController {
     const deliveryman = await Deliveryman.findByPk(deliveryman_id);
 
     if (!deliveryman) {
-      return res.status(401).json({ error: 'Deliveryman does not exist.' });
+      return res.status(404).json({ error: 'Deliveryman does not exist.' });
     }
 
     const deliveries = await Delivery.findAll({
