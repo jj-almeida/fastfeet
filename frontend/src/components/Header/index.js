@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useDispatch /* useSelector */ } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import logo from '~/assets/fastfeet-logo.png';
 
 import { Container, Content, Profile } from './styles';
+
 import { signOut } from '~/store/modules/auth/actions';
 
 export default function Header() {
-  // const profile = useSelector(state => state.user.profile);
   const dispatch = useDispatch();
 
   function handleSignOut() {
@@ -32,7 +32,7 @@ export default function Header() {
             <NavLink to="/recipients" activeClassName="selected">
               DESTINATÁRIOS
             </NavLink>
-            <NavLink to="/problems" v>
+            <NavLink to="/problems" activeClassName="selected">
               PROBLEMAS
             </NavLink>
           </div>

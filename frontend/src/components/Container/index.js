@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Content } from './styles';
+import { Wrapper } from './styles';
 
 export default function Container({ children }) {
-  return <Content>{children}</Content>;
+  return <Wrapper>{children}</Wrapper>;
 }
 
 Container.propTypes = {

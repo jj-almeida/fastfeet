@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-/**
- * TODO: Arrumar svg
- */
 export const Container = styled.div`
   padding: 0 30px;
   background: #fff;
@@ -11,7 +8,6 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   height: 64px;
-  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;

@@ -4,7 +4,7 @@ export const Container = styled.button`
   background: #bbb;
   color: #fff;
   font-size: 14px;
-  width: 112px;
+  width: 142px;
   height: 36px;
   text-align: center;
   align-items: center;
@@ -16,6 +16,7 @@ export const Container = styled.button`
   padding: 6px 12px;
   margin-left: 12px;
   transition: opacity 0.1s;
+  display: flex;
 
   svg {
     margin-right: 5px;
@@ -23,6 +24,7 @@ export const Container = styled.button`
 
   span {
     margin: 0;
+    text-align: center;
   }
 
   &:hover {

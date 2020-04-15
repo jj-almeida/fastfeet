@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Container } from './styles';
+import { Content } from './styles';
 
-export default function Wrapper({ children }) {
-  return <Container>{children}</Container>;
+export default function Container({ children }) {
+  return <Content>{children}</Content>;
 }
 
-Wrapper.propTypes = {
+Container.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
     .isRequired,
 };
