@@ -10,8 +10,9 @@ class DeliveryProblemController {
 
     const deliveries = await DeliveryProblem.findAll({
       attributes: ['id', 'delivery_id', 'description', 'created_at'],
-      limit: 20,
-      offset: (page - 1) * 20,
+      limit: 5,
+      offset: (page - 1) * 5,
+      order: [['id', 'ASC']],
       include: [
         {
           model: Delivery,

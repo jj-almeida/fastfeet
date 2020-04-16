@@ -29,6 +29,7 @@ class DeliveryController {
       where: productWhere,
       limit: 5,
       offset: (page - 1) * 5,
+      order: [['id', 'ASC']],
       include: [
         {
           model: Recipient,

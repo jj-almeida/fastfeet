@@ -98,8 +98,9 @@ class RecipientController {
         'postal_code',
       ],
       where: nameWhere,
-      limit: 20,
-      offset: (page - 1) * 20,
+      limit: 5,
+      offset: (page - 1) * 5,
+      order: [['id', 'ASC']],
     });
 
     return res.status(200).json(recipients);

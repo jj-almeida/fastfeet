@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { MdAdd } from 'react-icons/md';
-
-import Pagination from 'react-js-pagination';
+/* eslint-disable no-nested-ternary */
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Input } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
+import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 import Container from '~/components/Container';
-import SearchBar from '~/components/SearchBar';
 import Loading from '~/components/Loading';
 import Empty from '~/components/Empty';
 import Table from '~/components/Table';
@@ -13,50 +13,74 @@ import Item from './Item';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { AddButton } from './styles';
+import { AddButton, Footer } from './styles';
 
 /**
- * TODO: Arrumar SearchBar, paginacao
+ * TODO: Arrumar estilo Input SearchBar
  */
 
 export default function Delivery() {
-  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [product, setProduct] = useState('');
-  const [lengthOrders, setLengthOrders] = useState(0);
+  const [deliveries, setDeliveries] = useState([]);
   const [page, setPage] = useState(1);
 
-  async function loadOrders() {
-    setLoading(true);
-    const response = await api.get(`/deliveries`, {
-      params: {
-        page,
-      },
-    });
+  const handleSearchDelivery = useCallback(({ search }) => {
+    async function searchDelivery() {
+      try {
+        const response = await api.get(`/deliveries`, {
+          params: { q: search },
+        });
 
-    const data = response.data.map(order => ({
-      ...order,
-      disabled: order.end_date,
-    }));
-
-    setLengthOrders(response.data.length);
-    setOrders(data);
-    // setPage(1);
-    setLoading(false);
-  }
+        setDeliveries(response.data);
+      } catch ({ response }) {
+        toast.error(response.error);
+      }
+    }
+    searchDelivery();
+  }, []);
 
   useEffect(() => {
-    loadOrders(1);
-  }, []);
+    setLoading(true);
+
+    async function loadDeliveries() {
+      try {
+        const response = await api.get('/deliveries', {
+          params: { page },
+        });
+
+        setDeliveries(response.data);
+      } catch ({ response }) {
+        toast.error(response.error);
+      }
+    }
+
+    loadDeliveries();
+
+    setLoading(false);
+  }, [page]);
+
+  function handlePrevPage() {
+    if (page === 1) return;
+    setPage(page - 1);
+  }
+
+  function handleNextPage() {
+    if (deliveries.length < 5) return;
+    setPage(page + 1);
+  }
 
   return (
     <Container>
       <h2>Gerenciando encomendas</h2>
 
       <div>
-        <SearchBar
-          name="encomendas" /* search={product} setSearch={setProduct} */
-        />
+        <Form onSubmit={handleSearchDelivery}>
+          <Input
+            name="search"
+            type="search"
+            placeholder="Buscar por encomendas"
+          />
+        </Form>
 
         <AddButton onClick={() => history.push('deliveries/new')} type="button">
           <MdAdd size={22} color="#fff" />
@@ -66,35 +90,50 @@ export default function Delivery() {
 
       {loading ? (
         <Loading />
+      ) : !deliveries.length ? (
+        <Empty />
       ) : (
-        <Table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Destinatário</th>
-              <th>Entregador</th>
-              <th>Cidade</th>
-              <th>Estado</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
+        <>
+          <Table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Destinatário</th>
+                <th>Entregador</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
 
-          {orders.map(delivery => (
-            <Item delivery={delivery} />
-          ))}
-        </Table>
+            {deliveries.map(delivery => (
+              <Item delivery={delivery} />
+            ))}
+          </Table>
+
+          <Footer>
+            <header>
+              <button
+                type="button"
+                onClick={() => {
+                  handlePrevPage();
+                }}
+              >
+                <MdChevronLeft size={36} color="#7d40e7" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  handleNextPage();
+                }}
+              >
+                <MdChevronRight size={36} color="#7d40e7" />
+              </button>
+            </header>
+          </Footer>
+        </>
       )}
-
-      {/* {orders.length > 0 && (
-        <Pagination
-          activePage={page}
-          itemsCountPerPage={5}
-          totalItemsCount={450}
-          pageRangeDisplayed={5}
-          onChange={loadOrders}
-        />
-      )} */}
     </Container>
   );
 }

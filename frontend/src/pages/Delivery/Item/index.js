@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Status from '../Status';
+import Actions from '../Actions';
 
 // import { Container } from './styles';
 
@@ -27,7 +28,7 @@ export default function Item({ delivery }) {
         <td>{delivery.recipient.city}</td>
         <td>{delivery.recipient.state}</td>
         <Status delivery={delivery} />
-        <td>{delivery.recipient.state}</td>
+        <Actions delivery={delivery} />
       </tr>
     </tbody>
   );
@@ -37,12 +38,3 @@ Item.propTypes = {
   delivery: PropTypes.shape().isRequired,
   // onDelete: PropTypes.func.isRequired,
 };
-
-{
-  /* <Action
-          page={`order/edit/${order.id}`}
-          handleDetails={() => handleDetails(order)}
-          id={delivery.id}
-          order={orderDetail}
-        /> */
-}
