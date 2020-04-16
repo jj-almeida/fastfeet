@@ -27,8 +27,8 @@ class DeliveryController {
         'end_date',
       ],
       where: productWhere,
-      limit: 20,
-      offset: (page - 1) * 20,
+      limit: 5,
+      offset: (page - 1) * 5,
       include: [
         {
           model: Recipient,
@@ -46,7 +46,14 @@ class DeliveryController {
         {
           model: Deliveryman,
           as: 'deliveryman',
-          attributes: ['name', 'email'],
+          attributes: ['name', 'email', 'avatar_id'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
         },
         {
           model: File,
@@ -166,6 +173,61 @@ class DeliveryController {
     await delivery.destroy();
 
     return res.status(204).send();
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const delivery = await Delivery.findOne({
+      where: { id },
+      attributes: [
+        'id',
+        'recipient_id',
+        'deliveryman_id',
+        'signature_id',
+        'product',
+        'canceled_at',
+        'start_date',
+        'end_date',
+      ],
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'postal_code',
+          ],
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['name', 'email', 'avatar_id'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'signature',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    if (!delivery)
+      return res.status(404).json({ error: 'Delivery not found.' });
+
+    return res.status(200).json(delivery);
   }
 }
 

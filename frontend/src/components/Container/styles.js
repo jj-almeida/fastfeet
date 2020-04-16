@@ -4,7 +4,6 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 1350px;
   margin: 34px auto;
-  /* padding: 0 30px; */
 
   > h2 {
     margin: 34px auto;
@@ -14,6 +13,7 @@ export const Wrapper = styled.div`
   }
 
   > div {
+    margin: 22px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
