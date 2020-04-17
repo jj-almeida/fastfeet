@@ -81,7 +81,7 @@ export default function DetailsDelivery({ route }) {
   }
 
   function handleShowProblems() {
-    navigate('ProblemsDelivery', { delivery_id: data.id });
+    navigate('ProblemsDelivery', { data });
   }
 
   function handleConfirmDelivery() {
