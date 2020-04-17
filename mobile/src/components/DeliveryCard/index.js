@@ -1,10 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-
 import PropTypes from 'prop-types';
+import StepIndicator from 'react-native-step-indicator';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import StepIndicator from 'react-native-step-indicator';
 
 import formatDate from '~/utils/formatDate';
 
@@ -53,29 +52,29 @@ export default function DeliveryCard({ data }) {
     currentStepIndicatorSize: 13,
     separatorStrokeWidth: 2,
     currentStepStrokeWidth: 2,
-    stepStrokeCurrentColor: '#7D40E7',
+    stepStrokeCurrentColor: '#7d40e7',
     stepStrokeWidth: 2,
-    stepStrokeFinishedColor: '#7D40E7',
-    stepStrokeUnFinishedColor: '#aaaaaa',
-    separatorFinishedColor: '#7D40E7',
-    separatorUnFinishedColor: '#aaaaaa',
-    stepIndicatorFinishedColor: '#7D40E7',
-    stepIndicatorUnFinishedColor: '#ffffff',
-    stepIndicatorCurrentColor: '#7D40E7',
+    stepStrokeFinishedColor: '#7d40e7',
+    stepStrokeUnFinishedColor: '#aaa',
+    separatorFinishedColor: '#7d40e7',
+    separatorUnFinishedColor: '#aaa',
+    stepIndicatorFinishedColor: '#7d40e7',
+    stepIndicatorUnFinishedColor: '#fff',
+    stepIndicatorCurrentColor: '#7d40e7',
     stepIndicatorLabelFontSize: 0,
     currentStepIndicatorLabelFontSize: 0,
-    stepIndicatorLabelCurrentColor: '#7D40E7',
-    stepIndicatorLabelFinishedColor: '#7D40E7',
-    stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-    labelColor: '#999999',
+    stepIndicatorLabelCurrentColor: '#7d40e7',
+    stepIndicatorLabelFinishedColor: '#7d40e7',
+    stepIndicatorLabelUnFinishedColor: '#aaa',
+    labelColor: '#999',
     labelSize: 13,
-    currentStepLabelColor: '#999999',
+    currentStepLabelColor: '#999',
   };
 
   return (
     <Container>
       <Header>
-        <Icon name="local-shipping" color="#7D40E7" size={27} />
+        <Icon name="local-shipping" color="#7d40e7" size={27} />
         <Title>{data.product}</Title>
       </Header>
 
@@ -120,5 +119,4 @@ DeliveryCard.propTypes = {
       city: PropTypes.string,
     }),
   }).isRequired,
-  // onPress: PropTypes.func.isRequired,
 };

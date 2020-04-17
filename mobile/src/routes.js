@@ -1,5 +1,4 @@
 import React from 'react';
-// import { TouchableOpacity } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,7 +18,6 @@ Icon.loadFont();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// TODO: Checar todas as rotas
 function NewStack() {
   return (
     <Stack.Navigator
@@ -112,7 +110,7 @@ export default function createRouter(isSigned = false) {
     <Tab.Navigator
       tabBarOptions={{
         keyboardHidesTabBar: true,
-        activeTintColor: '#7D40E7',
+        activeTintColor: '#7d40e7',
         inactiveTintColor: '#999',
         labelStyle: {
           fontWeight: 'bold',
@@ -126,23 +124,13 @@ export default function createRouter(isSigned = false) {
       }}
       headerMode="none"
     >
-      {/* <Tab.Screen
-        name="Dashboard"
-        component={Dashboard}
-        options={{
-          tabBarLabel: 'Entregas',
-          tabBarIcon: ({ color }) => (
-            <Icon name="menu" size={24} color={color} />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Dashboard"
         component={NewStack}
         options={{
           tabBarLabel: 'Entregas',
           tabBarIcon: ({ color }) => (
-            <Icon name="reorder" size={28} color={color} />
+            <Icon name="reorder" size={24} color={color} />
           ),
         }}
       />

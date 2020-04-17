@@ -9,6 +9,7 @@ class DeliveryEndController {
   async update(req, res) {
     const schema = Yup.object().shape({
       delivery_id: Yup.number().required(),
+      signature_id: Yup.number().required(),
     });
 
     const schemaIsValid = await schema.isValid(req.body);
@@ -18,7 +19,7 @@ class DeliveryEndController {
     }
 
     const deliveryman_id = req.params.id;
-    const { delivery_id } = req.body;
+    const { delivery_id, signature_id } = req.body;
 
     const deliveryman = await Deliveryman.findByPk(deliveryman_id);
 
@@ -41,13 +42,13 @@ class DeliveryEndController {
         .json({ error: 'Delivery does not exist or already finished.' });
     }
 
-    const { originalname: name, filename: path } = req.file;
+    // const { originalname: name, filename: path } = req.file;
 
-    const file = await File.create({ name, path });
+    // const file = await File.create({ name, path });
 
     const { id, product, end_date } = await delivery.update({
       end_date: new Date(),
-      signature_id: file.id,
+      signature_id,
     });
 
     return res.json({ id, deliveryman_id, product, end_date });

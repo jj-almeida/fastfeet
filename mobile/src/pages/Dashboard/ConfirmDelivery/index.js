@@ -53,9 +53,9 @@ export default function ConfirmDelivery() {
         type: 'image/jpeg',
       });
 
-      // const response = await api.post('/files', dataFile);
+      const response = await api.post('/files', dataFile);
 
-      // const { id } = response.data;
+      const { id } = response.data;
 
       const finishResponse = await api.put(`/deliverymans/1/deliveriesend/`, {
         delivery_id: '1',

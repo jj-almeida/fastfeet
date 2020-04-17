@@ -3,7 +3,6 @@ import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import logo from '~/assets/logo.png';
-
 import { Background, Container, Form, FormInput, SubmitButton } from './styles';
 import { signInRequest } from '~/store/modules/auth/actions';
 

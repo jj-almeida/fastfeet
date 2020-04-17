@@ -3,7 +3,6 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
-
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 

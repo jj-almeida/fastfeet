@@ -38,6 +38,7 @@ class DeliverymanController {
     const schema = Yup.object().shape({
       name: Yup.string(),
       email: Yup.string(),
+      avatar_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -64,6 +65,7 @@ class DeliverymanController {
     const { name } = await deliveryman.update(req.body);
 
     return res.status(200).json({
+      id,
       name,
       email,
     });

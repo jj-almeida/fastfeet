@@ -27,7 +27,6 @@ export const Form = styled.View`
 export const FormInput = styled(Input)`
   margin-bottom: 10px;
   background: #fff;
-  color: #715;
 `;
 
 export const SubmitButton = styled(Button)`
