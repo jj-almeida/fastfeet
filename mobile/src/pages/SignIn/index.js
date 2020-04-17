@@ -10,8 +10,6 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const [id, setId] = useState('');
 
-  // const formRef = useRef(null);
-
   const loading = useSelector((state) => state.auth.loading);
 
   function handleSubmit() {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { StatusBar } from 'react-native';
-import { Container, Avatar, Label, Text, LogoutButton } from './styles';
+import { StatusBar, TouchableOpacity } from 'react-native';
 
 import { signOut } from '~/store/modules/auth/actions';
+
+import { Container, Avatar, Label, Text, LogoutButton } from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -34,8 +34,9 @@ export default function Profile() {
       <Label>Data de cadastro</Label>
       <Text>{profile.registeredDate}</Text>
 
-      {/* TODO: Arrumar logout */}
-      <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
+      <TouchableOpacity onPress={handleLogout}>
+        <LogoutButton>Logout</LogoutButton>
+      </TouchableOpacity>
     </Container>
   );
 }

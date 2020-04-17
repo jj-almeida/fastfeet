@@ -4,7 +4,7 @@ import Button from '~/components/Button';
 export const Container = styled.View`
   flex: 1;
   background: #fff;
-  padding: 36px;
+  padding: 35px;
   justify-content: center;
   align-content: center;
 `;
@@ -16,7 +16,6 @@ export const Avatar = styled.Image`
   background: #f4effc;
   align-self: center;
   margin-bottom: 40px;
-  /* border: 2px #eee; */
 `;
 
 export const Label = styled.Text`
