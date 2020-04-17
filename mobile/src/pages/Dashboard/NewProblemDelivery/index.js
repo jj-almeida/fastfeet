@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar, Alert } from 'react-native';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
@@ -8,8 +9,8 @@ import { Container, Header, Body, Form, TInput, SubmitButton } from './styles';
 
 export default function NewProblemDelivery({ route }) {
   const { navigate } = useNavigation();
+
   const data = route.params;
-  // console.log(data);
 
   const [description, setDescription] = useState('');
 
@@ -26,7 +27,6 @@ export default function NewProblemDelivery({ route }) {
       navigate('Dashboard');
     } catch ({ response }) {
       Alert.alert('Falha!', response.data.error);
-      // console.tron.log(err);
     }
   }
 
@@ -48,9 +48,18 @@ export default function NewProblemDelivery({ route }) {
             value={description}
             onChangeText={setDescription}
           />
+
           <SubmitButton onPress={handleSubmit}>Enviar</SubmitButton>
         </Form>
       </Body>
     </Container>
   );
 }
+
+NewProblemDelivery.propTypes = {
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      delivery_id: PropTypes.number,
+    }),
+  }).isRequired,
+};

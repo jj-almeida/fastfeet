@@ -23,11 +23,11 @@ import {
 export default function DeliveryCard({ data }) {
   const { navigate } = useNavigation();
 
+  const [currentPosition, setCurrentPosition] = useState(0);
+
   function handleShowDelivery() {
     navigate('DetailsDelivery', { data });
   }
-
-  const [currentPosition, setCurrentPosition] = useState(0);
 
   const dateParsed = useMemo(() => {
     return formatDate(data.created_at);
@@ -74,7 +74,7 @@ export default function DeliveryCard({ data }) {
   return (
     <Container>
       <Header>
-        <Icon name="local-shipping" color="#7d40e7" size={27} />
+        <Icon name="local-shipping" color="#7d40e7" size={24} />
         <Title>{data.product}</Title>
       </Header>
 

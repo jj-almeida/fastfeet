@@ -1,28 +1,21 @@
 import styled from 'styled-components/native';
-import { Platform, StyleSheet, Dimensions } from 'react-native';
+import { Platform, Dimensions } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
   background: #fff;
-  /* padding: 20px 20px; */
-  /* position: relative; */
-  /* align-items: center; */
-  /* padding: 10px; */
-  /* margin-top: -70px; */
 `;
 
 export const Header = styled.View`
   height: ${Platform.OS === 'ios' ? 165 : 155}px;
-  background: #7d40e7;
-  padding: 15px;
-  position: relative;
   padding-top: ${Platform.OS === 'ios' ? 45 : 25}px;
+  background: #7d40e7;
 `;
 
 export const Body = styled.View`
   flex: 1;
   align-items: center;
-  padding: 10px;
+  padding: 10px 12px;
   margin-top: -70px;
 `;
 
@@ -31,8 +24,9 @@ export const Card = styled.View`
   padding: 10px 15px;
   align-self: stretch;
   background: #fff;
-  border: 1px solid #fafafa;
+  border: 2px solid #fff;
   margin-bottom: 10px;
+  elevation: 3;
 `;
 
 export const HeaderCard = styled.View`
@@ -52,6 +46,7 @@ export const Label = styled.Text`
   font-size: 14px;
   color: #999;
   font-weight: bold;
+  text-transform: uppercase;
   margin-bottom: 4px;
 `;
 
@@ -70,30 +65,15 @@ export const DateContainer = styled.View`
 
 export const Date = styled.View``;
 
-export const styles = StyleSheet.create({
-  shadowBox: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
-  },
-});
-
 export const ActionContainer = styled.View`
   height: 85px;
   width: 100%;
   background: #f8f9fd;
   border-radius: 4px;
-  box-shadow: 0 0 3px #0000001a;
-  elevation: 3;
   margin-top: 10px;
   flex-direction: row;
   justify-content: space-around;
+  elevation: 3;
 `;
 
 export const TextAction = styled.Text`

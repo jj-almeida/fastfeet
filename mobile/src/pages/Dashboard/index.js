@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TouchableOpacity, StatusBar } from 'react-native';
+import { TouchableOpacity, StatusBar, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { signOut } from '~/store/modules/auth/actions';
+import api from '~/services/api';
 
 import DeliveryCard from '~/components/DeliveryCard';
-import api from '~/services/api';
 
 import {
   Container,
@@ -15,7 +15,6 @@ import {
   NameContainer,
   Welcome,
   Name,
-  Body,
   TabContainer,
   TabBar,
   Title,
@@ -30,34 +29,42 @@ export default function Dashboard() {
 
   const [deliveries, setDeliveries] = useState([]);
   const [delivered, setDelivered] = useState(false);
-  const [refresh, setRefresh] = useState(false);
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     async function loadDeliveries() {
       if (delivered) {
-        const response = await api.get(
-          `deliverymans/${profile.id}/deliveriesclosed/`
-        );
+        try {
+          const response = await api.get(
+            `deliverymans/${profile.id}/deliveriesclosed/`
+          );
 
-        setDeliveries(response.data);
+          setDeliveries(response.data);
+        } catch ({ response }) {
+          Alert.alert('Falha!', response.data.error);
+        }
       }
 
       if (!delivered) {
-        const response = await api.get(
-          `deliverymans/${profile.id}/deliveriesopen/`
-        );
+        try {
+          const response = await api.get(
+            `deliverymans/${profile.id}/deliveriesopen/`
+          );
 
-        setDeliveries(response.data);
+          setDeliveries(response.data);
+        } catch ({ response }) {
+          Alert.alert('Falha!', response.data.error);
+        }
       }
 
-      setRefresh(false);
+      setloading(false);
     }
 
     loadDeliveries();
-  }, [delivered, profile.id, refresh]);
+  }, [delivered, profile.id, loading]);
 
   async function loadPage() {
-    setRefresh(true);
+    setloading(true);
   }
 
   async function deliveriesFilter(data) {
@@ -90,61 +97,60 @@ export default function Dashboard() {
         </NameContainer>
 
         <TouchableOpacity onPress={handleLogout}>
-          <Icon name="exit-to-app" size={24} color="#E74040" size={30} />
+          <Icon name="exit-to-app" size={24} color="#e74040" />
         </TouchableOpacity>
       </Header>
 
-      <Body>
-        <TabContainer>
-          <Title>Entregas</Title>
+      <TabContainer>
+        <Title>Entregas</Title>
 
-          {/* TODO: Jogar propst para styles */}
-          <TabBar>
-            <Tab
-              onPress={() => {
-                deliveriesFilter(false);
+        <TabBar>
+          <Tab
+            onPress={() => {
+              deliveriesFilter(false);
+            }}
+          >
+            <TabText
+              style={{
+                color: !delivered ? '#7d40e7' : '#999',
+                textDecorationLine: !delivered ? 'underline' : 'none',
+                fontWeight: 'bold',
+                fontSize: 12,
+                textAlign: 'right',
               }}
             >
-              <TabText
-                style={{
-                  color: !delivered ? '#7D40E7' : '#999',
-                  fontWeight: 'bold',
-                  fontSize: 12,
-                  textAlign: 'right',
-                }}
-              >
-                Pendentes
-              </TabText>
-            </Tab>
+              Pendentes
+            </TabText>
+          </Tab>
 
-            <Tab
-              onPress={() => {
-                deliveriesFilter(true);
+          <Tab
+            onPress={() => {
+              deliveriesFilter(true);
+            }}
+          >
+            <TabText
+              style={{
+                color: delivered ? '#7d40e7' : '#999',
+                textDecorationLine: delivered ? 'underline' : 'none',
+                fontWeight: 'bold',
+                fontSize: 12,
+                textAlign: 'right',
+                paddingRight: 5,
               }}
             >
-              <TabText
-                style={{
-                  color: delivered ? '#7D40E7' : '#999',
-                  fontWeight: 'bold',
-                  fontSize: 12,
-                  textAlign: 'right',
-                  paddingRight: 5,
-                }}
-              >
-                Entregues
-              </TabText>
-            </Tab>
-          </TabBar>
-        </TabContainer>
+              Entregues
+            </TabText>
+          </Tab>
+        </TabBar>
+      </TabContainer>
 
-        <List
-          data={deliveries}
-          refreshing={refresh}
-          onRefresh={loadPage}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item: data }) => <DeliveryCard data={data} />}
-        />
-      </Body>
+      <List
+        data={deliveries}
+        refreshing={loading}
+        onRefresh={loadPage}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item: data }) => <DeliveryCard data={data} />}
+      />
     </Container>
   );
 }

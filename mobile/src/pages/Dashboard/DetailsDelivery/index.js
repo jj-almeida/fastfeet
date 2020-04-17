@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar, Alert } from 'react-native';
 import PropTypes from 'prop-types';
@@ -22,17 +23,16 @@ import {
   ActionContainer,
   TextAction,
   ActionButton,
-  styles,
 } from './styles';
 
 export default function DetailsDelivery({ route }) {
   const { navigate } = useNavigation();
+
+  const profile = useSelector((state) => state.user.profile);
+
   const { data } = route.params;
-  console.log(data);
 
   const [status, setStatus] = useState('');
-  // const [startDate, setStartDate] = useState({ start_date: data.start_date });
-  // const [endDate, setEndDate] = useState({ end_date: data.end_date })
 
   const startDate = data.start_date
     ? formatDate(data.start_date)
@@ -42,7 +42,7 @@ export default function DetailsDelivery({ route }) {
 
   useEffect(() => {
     async function loadStatus() {
-      if (!data.start_date && !data.end_date) {
+      if (!data.start_date) {
         setStatus('Pendente');
       }
       if (data.start_date && !data.end_date) {
@@ -57,9 +57,12 @@ export default function DetailsDelivery({ route }) {
 
   async function handleDelivery() {
     try {
-      const response = await api.put(`deliverymans/1/deliveriesstart`, {
-        delivery_id: data.id,
-      });
+      const response = await api.put(
+        `deliverymans/${profile.id}/deliveriesstart`,
+        {
+          delivery_id: data.id,
+        }
+      );
 
       Alert.alert('Sucesso!', 'Retirada realizada com sucesso!');
 
@@ -70,7 +73,10 @@ export default function DetailsDelivery({ route }) {
   }
 
   function handleNewProblem() {
-    // if (data.end_date) return;
+    if (data.end_date) {
+      Alert.alert('Ooops!', 'Entrega já realizada!');
+      return;
+    }
     navigate('NewProblemDelivery', { delivery_id: data.id });
   }
 
@@ -79,18 +85,20 @@ export default function DetailsDelivery({ route }) {
   }
 
   function handleConfirmDelivery() {
+    if (data.end_date) {
+      Alert.alert('Ooops!', 'Entrega já realizada!');
+      return;
+    }
     navigate('ConfirmDelivery', { delivery_id: data.id });
   }
 
-  // TODO:Esmaecer botoes ou retornar com if acima
-  // TODO: Componetizar Header
   return (
     <Container>
       <StatusBar barStyle="light-content" backgroundColor="#7d40e7" />
 
       <Header />
       <Body>
-        <Card style={styles.shadowBox}>
+        <Card>
           <HeaderCard>
             <Icon name="local-shipping" size={24} color="#7d40e7" />
             <Title>Informações da entrega</Title>
@@ -110,9 +118,9 @@ export default function DetailsDelivery({ route }) {
           <Text>{data.product}</Text>
         </Card>
 
-        <Card style={styles.shadowBox}>
+        <Card>
           <HeaderCard>
-            <Icon name="event" size={22} color="#7D40E7" />
+            <Icon name="event" size={22} color="#7d40e7" />
             <Title>Status da encomenda</Title>
           </HeaderCard>
 
@@ -143,7 +151,6 @@ export default function DetailsDelivery({ route }) {
             <TextAction>Visualizar Problemas</TextAction>
           </ActionButton>
 
-          {/* TODO: If ternario */}
           {data.start_date ? (
             <ActionButton onPress={() => handleConfirmDelivery()}>
               <Icon
@@ -156,7 +163,7 @@ export default function DetailsDelivery({ route }) {
             </ActionButton>
           ) : (
             <ActionButton onPress={() => handleDelivery()}>
-              <Icon name="radio-button-unchecked" color="#7D40E7" size={24} />
+              <Icon name="add-circle-outline" color="#7d40e7" size={24} />
               <TextAction>Retirar entrega</TextAction>
             </ActionButton>
           )}
