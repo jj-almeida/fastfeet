@@ -91,7 +91,7 @@ export default function Delivery() {
       {loading ? (
         <Loading />
       ) : !deliveries.length ? (
-        <Empty />
+        <Empty name="encomendas" />
       ) : (
         <>
           <Table>

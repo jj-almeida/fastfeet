@@ -53,7 +53,7 @@ export default function Actions({ delivery }) {
   }
 
   function handleEdit(id) {
-    history.push(`/deliveries/${id}`);
+    history.push(`/deliveries/edit/${id}`);
   }
 
   function handleDetail() {
@@ -70,7 +70,7 @@ export default function Actions({ delivery }) {
               <p>
                 {delivery.recipient.city} - {delivery.recipient.region}
               </p>
-              <p>{delivery.recipient.zipcode}</p>
+              <p>{delivery.recipient.postal_code}</p>
             </div>
 
             <div>

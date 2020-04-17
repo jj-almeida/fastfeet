@@ -36,5 +36,4 @@ export default function Item({ delivery }) {
 
 Item.propTypes = {
   delivery: PropTypes.shape().isRequired,
-  // onDelete: PropTypes.func.isRequired,
 };

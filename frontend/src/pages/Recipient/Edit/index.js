@@ -1,7 +1,31 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { MdChevronLeft, MdCheck } from 'react-icons/md';
 
-export default function Edit() {
-  return <div />;
+import FormContainer from '~/components/FormContainer';
+
+import history from '~/services/history';
+
+import { BackButton, SaveButton } from './styles';
+
+export default function Add() {
+  return (
+    <FormContainer>
+      <header>
+        <h2>Edição de destinatários</h2>
+
+        <div>
+          <BackButton onClick={() => history.push('/recipients')}>
+            <MdChevronLeft size={22} color="#fff" />
+            Voltar
+          </BackButton>
+
+          <SaveButton>
+            <MdCheck size={22} color="#fff" onClick={() => {}} />
+            Salvar
+          </SaveButton>
+        </div>
+      </header>
+    </FormContainer>
+  );
 }
