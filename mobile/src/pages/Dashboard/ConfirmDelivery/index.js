@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 import { RNCamera } from 'react-native-camera';
+import { Alert } from 'react-native';
 
-// import SnackBar from 'react-native-snackbar';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import api from '~/services/api';
 
 import {
   Container,
@@ -17,17 +19,17 @@ import {
   CameraButton,
   Thumbnail,
 } from './styles';
-// import Header from '~/components/Header';
-import api from '~/services/api';
 
-export default function ConfirmDelivery() {
+export default function ConfirmDelivery({ route }) {
+  const { navigate } = useNavigation();
+
+  const profile = useSelector((state) => state.user.profile);
+
+  const data = route.params;
+
   const [camera, setCamera] = useState(null);
   const [file, setFile] = useState(null);
 
-  const userId = useSelector((state) => state.auth.userId);
-
-  const { params } = useRoute();
-  const { navigate } = useNavigation();
   async function handleTakePicture() {
     if (camera) {
       const options = {
@@ -35,50 +37,36 @@ export default function ConfirmDelivery() {
         base64: false,
         width: 800,
       };
-      const data = await camera.takePictureAsync(options);
+      const dataCamera = await camera.takePictureAsync(options);
 
-      setFile(data);
+      setFile(dataCamera);
     }
   }
 
   async function handleSubmit() {
-    const { order_id } = params;
-    console.log('entreeeei');
-
     try {
       const dataFile = new FormData();
       dataFile.append('file', {
-        path: file.uri,
+        uri: file.uri,
         name: 'signature.jpg',
         type: 'image/jpeg',
       });
 
-      const response = await api.post('/files', dataFile);
+      const fileResponse = await api.post('/files', dataFile);
 
-      const { id } = response.data;
+      const { id } = fileResponse.data;
 
-      const finishResponse = await api.put(`/deliverymans/1/deliveriesend/`, {
-        delivery_id: '1',
-        file,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await api.put(
+        `/deliverymans/${profile.id}/deliveriesend/`,
+        {
+          delivery_id: data.delivery_id,
+          signature_id: id,
+        }
+      );
 
-      console.log(finishResponse);
-
-      // SnackBar.show({
-      //   text: finishResponse.data.msg,
-      //   backgroundColor: '#2CA42B',
-      // });
       navigate('Dashboard');
-    } catch (err) {
-      console.tron.log(err);
-      // SnackBar.show({
-      //   text: 'erro',
-      //   backgroundColor: '#DE3B3B',
-      //   duration: SnackBar.LENGTH_LONG,
-      // });
+    } catch ({ response }) {
+      Alert.alert('Falha!', response.data.error);
     }
   }
 
@@ -97,10 +85,10 @@ export default function ConfirmDelivery() {
               type={RNCamera.Constants.Type.back}
               captureAudio={false}
               androidCameraPermissionOptions={{
-                title: 'Permissão para usar a câmera',
-                message: 'Precisamos de permissão para usar sua câmera',
+                title: 'Permission to use camera',
+                message: 'We need your permission to use your camera',
                 buttonPositive: 'OK',
-                buttonNegative: 'Cancelar',
+                buttonNegative: 'Cancel',
               }}
             />
           )}
@@ -115,8 +103,16 @@ export default function ConfirmDelivery() {
             </CameraButton>
           )}
         </CameraView>
-        <SubmitButton onPress={handleSubmit}>Enviar</SubmitButton>
+        <SubmitButton onPress={handleSubmit}>Enviar </SubmitButton>
       </Content>
     </Container>
   );
 }
+
+ConfirmDelivery.propTypes = {
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      delivery_id: PropTypes.number,
+    }),
+  }).isRequired,
+};
