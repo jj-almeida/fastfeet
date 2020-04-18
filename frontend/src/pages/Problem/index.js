@@ -1,22 +1,17 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
-
 import { toast } from 'react-toastify';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+
+import api from '~/services/api';
 
 import Container from '~/components/Container';
 import Loading from '~/components/Loading';
 import Empty from '~/components/Empty';
-import Table from '~/components/Table';
+import TableContainer from '~/components/TableContainer';
 import Item from './Item';
 
-import api from '~/services/api';
-
 import { Footer } from './styles';
-
-/**
- * TODO: Arrumar estilo Input SearchBar
- */
 
 export default function Problem() {
   const [loading, setLoading] = useState(false);
@@ -28,7 +23,7 @@ export default function Problem() {
 
     async function loadProblems() {
       try {
-        const response = await api.get('/deliveries/problems', {
+        const response = await api.get('/delivery-problems', {
           params: { page },
         });
 
@@ -63,7 +58,7 @@ export default function Problem() {
         <Empty name="problemas" />
       ) : (
         <>
-          <Table>
+          <TableContainer>
             <thead>
               <tr>
                 <th>Encomenda</th>
@@ -75,7 +70,7 @@ export default function Problem() {
             {problems.map(problem => (
               <Item problem={problem} />
             ))}
-          </Table>
+          </TableContainer>
 
           <Footer>
             <header>

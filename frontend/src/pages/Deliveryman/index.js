@@ -4,20 +4,16 @@ import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
-import Container from '~/components/Container';
-import Loading from '~/components/Loading';
-import Empty from '~/components/Empty';
-import Table from '~/components/Table';
-import Item from './Item';
-
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { AddButton, Footer } from './styles';
+import Container from '~/components/Container';
+import Loading from '~/components/Loading';
+import Empty from '~/components/Empty';
+import TableContainer from '~/components/TableContainer';
+import Item from './Item';
 
-/**
- * TODO: Arrumar estilo Input SearchBar
- */
+import { AddButton, Footer } from './styles';
 
 export default function Deliveryman() {
   const [loading, setLoading] = useState(false);
@@ -97,7 +93,7 @@ export default function Deliveryman() {
         <Empty name="entregadores" />
       ) : (
         <>
-          <Table>
+          <TableContainer>
             <thead>
               <tr>
                 <th>ID</th>
@@ -111,7 +107,7 @@ export default function Deliveryman() {
             {deliverymans.map(deliveryman => (
               <Item deliveryman={deliveryman} />
             ))}
-          </Table>
+          </TableContainer>
 
           <Footer>
             <header>

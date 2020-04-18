@@ -4,20 +4,16 @@ import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
-import Container from '~/components/Container';
-import Loading from '~/components/Loading';
-import Empty from '~/components/Empty';
-import Table from '~/components/Table';
-import Item from './Item';
-
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { AddButton, Footer } from './styles';
+import Container from '~/components/Container';
+import Loading from '~/components/Loading';
+import Empty from '~/components/Empty';
+import TableContainer from '~/components/TableContainer';
+import Item from './Item';
 
-/**
- * TODO: Arrumar estilo Input SearchBar
- */
+import { AddButton, Footer } from './styles';
 
 export default function Recipient() {
   const [loading, setLoading] = useState(false);
@@ -94,7 +90,7 @@ export default function Recipient() {
         <Empty name="destinatários" />
       ) : (
         <>
-          <Table>
+          <TableContainer>
             <thead>
               <tr>
                 <th>ID</th>
@@ -107,7 +103,7 @@ export default function Recipient() {
             {recipients.map(recipient => (
               <Item recipient={recipient} />
             ))}
-          </Table>
+          </TableContainer>
 
           <Footer>
             <header>

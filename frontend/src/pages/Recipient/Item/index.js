@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import Actions from '../Actions';
 
-// import { Container } from './styles';
-
 export default function Item({ recipient }) {
   return (
     <tbody>

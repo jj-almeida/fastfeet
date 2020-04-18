@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Status from '../Status';
 import Actions from '../Actions';
 
-// import { Container } from './styles';
-
 export default function Item({ delivery }) {
   return (
     <tbody>

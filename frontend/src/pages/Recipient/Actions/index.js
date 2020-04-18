@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-
 import { MdMoreHoriz, MdModeEdit, MdDeleteForever } from 'react-icons/md';
 
 import history from '~/services/history';

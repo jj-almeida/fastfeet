@@ -4,14 +4,14 @@ import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
+import api from '~/services/api';
+import history from '~/services/history';
+
 import Container from '~/components/Container';
 import Loading from '~/components/Loading';
 import Empty from '~/components/Empty';
-import Table from '~/components/Table';
+import TableContainer from '~/components/TableContainer';
 import Item from './Item';
-
-import api from '~/services/api';
-import history from '~/services/history';
 
 import { AddButton, Footer } from './styles';
 
@@ -94,7 +94,7 @@ export default function Delivery() {
         <Empty name="encomendas" />
       ) : (
         <>
-          <Table>
+          <TableContainer>
             <thead>
               <tr>
                 <th>ID</th>
@@ -110,7 +110,7 @@ export default function Delivery() {
             {deliveries.map(delivery => (
               <Item delivery={delivery} />
             ))}
-          </Table>
+          </TableContainer>
 
           <Footer>
             <header>
