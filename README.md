@@ -10,4 +10,6 @@
 To run this application you will need:
 * [Git](https://git-scm.com)
 * [Node](https://nodejs.org/)
+* [Docker](https://https://www.docker.com/) (Optional)
 * [Yarn](https://yarnpkg.com/) (Optional)
+
