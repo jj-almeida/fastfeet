@@ -2,20 +2,19 @@ import React, { useRef } from 'react';
 import { Form } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
-
-import FormContainer from '~/components/FormContainer';
-import AvatarInput from '../AvatarInput';
-import Input from '~/components/Input';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
+import FormContainer from '~/components/FormContainer';
+import Input from '~/components/Input';
+import AvatarInput from '../AvatarInput';
+
 import { BackButton, SaveButton } from './styles';
 
 export default function Add() {
-  const formRef = useRef(null);
+  const formRef = useRef();
 
   async function handleSubmit(data) {
     try {

@@ -1,30 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
-
+import React, { useRef, useState, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
-// import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-
 import PropTypes from 'prop-types';
+
+// import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import { MdPhotoSizeSelectActual } from 'react-icons/md';
+
 import api from '~/services/api';
 
 import { Container } from './styles';
 
-export default function AvatarInput({ name, avatarData }) {
-  // const { fieldName, defaultValue, registerField } = useField(name);
+export default function AvatarInput({ name, avatar }) {
   const { fieldName, defaultValue, registerField } = useField(name);
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
-
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
   const ref = useRef(null);
 
   useEffect(() => {
     async function previewAvatar() {
-      setPreview(avatarData);
+      setPreview(avatar);
     }
 
     previewAvatar();
-  }, [avatarData]);
+  }, [avatar]);
 
   useEffect(() => {
     if (ref.current) {
@@ -34,13 +33,13 @@ export default function AvatarInput({ name, avatarData }) {
         path: 'dataset.file',
       });
     }
-    }, [ref]); // eslint-disable-line
-
-  // [ref, registerField])
+  }, [ref]);
 
   async function handleChange(e) {
     const data = new FormData();
+
     data.append('file', e.target.files[0]);
+
     const response = await api.post('files', data);
 
     const { id, url } = response.data;
@@ -55,11 +54,7 @@ export default function AvatarInput({ name, avatarData }) {
           <img src={preview.url} alt="" />
         ) : (
           <div>
-            {/* <InsertPhotoIcon
-              className="photoIcon"
-              color="disabled"
-              style={{ fontSize: '8rem' }}
-            /> */}
+            <MdPhotoSizeSelectActual size={50} color="#DDDDDD" />
             <span className="addPicture">Adicionar foto</span>
           </div>
         )}
@@ -78,5 +73,5 @@ export default function AvatarInput({ name, avatarData }) {
 
 AvatarInput.propTypes = {
   name: PropTypes.shape().isRequired,
-  avatarData: PropTypes.shape().isRequired,
+  avatar: PropTypes.shape().isRequired,
 };

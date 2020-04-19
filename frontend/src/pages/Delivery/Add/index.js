@@ -2,15 +2,14 @@ import React, { useRef } from 'react';
 import { Form } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
+
+import api from '~/services/api';
+import history from '~/services/history';
 
 import FormContainer from '~/components/FormContainer';
 import Input from '~/components/Input';
 import AsyncSelectInput from '../AsyncSelect';
-
-import api from '~/services/api';
-import history from '~/services/history';
 
 import { BackButton, SaveButton } from './styles';
 
@@ -38,9 +37,10 @@ export default function Add() {
         deliveryman_id: data.deliveryman_id.value,
         product: data.product,
       });
+
       toast.success('Encomenda criada com sucesso!');
 
-      history.push('/deliveries');
+      history.push('/');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         err.inner.forEach(error => {

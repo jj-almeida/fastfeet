@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import DeliveryProblem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
@@ -5,10 +7,6 @@ import Deliveryman from '../models/Deliveryman';
 
 import Queue from '../../lib/Queue';
 import CancelDeliveryMail from '../jobs/CancelDeliveryMail';
-
-/**
- * TODO: Melhorar email template
- */
 
 class DeliveryCancelController {
   async delete(req, res) {
@@ -19,7 +17,7 @@ class DeliveryCancelController {
     }
 
     const delivery = await Delivery.findOne({
-      where: { id: deliveryProblem.delivery_id },
+      where: { id: deliveryProblem.delivery_id, end_date: { [Op.is]: null } },
       include: [
         {
           model: Recipient,

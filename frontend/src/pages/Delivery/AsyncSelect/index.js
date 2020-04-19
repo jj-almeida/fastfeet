@@ -59,7 +59,7 @@ export default function AsyncSelectInput({ name, label, endpoint, ...rest }) {
   }, [fieldName, registerField, rest.isMulti]);
 
   return (
-    <Container error={error}>
+    <Container>
       <Label>
         <strong>{label}</strong>
       </Label>
