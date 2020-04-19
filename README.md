@@ -11,6 +11,7 @@
   * [Express](https://expressjs.com/)
 * [React](https://reactjs.org/)
   * [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+  * [Redux](https://redux.js.org/)
 * [React Native](https://reactnative.dev/)
 
 ## Requirements
