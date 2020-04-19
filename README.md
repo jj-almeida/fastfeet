@@ -23,6 +23,8 @@ To run this application you will need:
 ## How to run this project
 To run this project you'll need a Postgres database instance and a Redis instance. Afther that, fill the .env file with your credentials.
 
+The mobile app is available for Android
+
 To run this project, follow the next steps in your terminal:
 
 ```bash
@@ -54,7 +56,6 @@ $ yarn start
 $ cd mobile
 $ yarn
 
-# The mobile app is available for Android
 # Run the app
 $ react-native run-android
 
