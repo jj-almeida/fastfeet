@@ -21,7 +21,9 @@ To run this application you will need:
 * [Yarn](https://yarnpkg.com/) (Optional)
 
 ## How to run this project
-To run this project, follow the nexts steps in your terminal
+To run this project you'll need a Postgres database instance and a redis instance. Afther that, fill the .env file with your credentials.
+
+To run this project, follow the nexts steps in your terminal:
 
 ```bash
 $ git clone https://github.com/almeida-joseantonio/fastfeet
@@ -31,8 +33,6 @@ $ cd bootcamp-fastfeet
 # Install dependencies for backend
 $ cd backend
 $ yarn
-
-# It is necessary  postgres database instance.
 
 $ yarn sequelize db:migrate
 $ yarn sequelize db:seed:all
