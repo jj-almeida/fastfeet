@@ -7,3 +7,7 @@
 </h3>
 
 ## Requirements
+To run this application you will need:
+* [Git](https://git-scm.com)
+* [Node](https://nodejs.org/)
+* [Yarn](https://yarnpkg.com/) (Optional)
