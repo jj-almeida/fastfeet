@@ -84,14 +84,16 @@ export default function Edit({ match }) {
           </div>
         </header>
 
-        <AvatarInput name="avatar_id" avatar={deliverymans.avatar} />
-        <Input label="Nome" name="name" placeholder="John Doe" />
+        <section>
+          <AvatarInput name="avatar_id" avatar={deliverymans.avatar} />
+          <Input label="Nome" name="name" placeholder="John Doe" />
 
-        <Input
-          label="Email"
-          name="email"
-          placeholder="example@rocketseat.com.br"
-        />
+          <Input
+            label="Email"
+            name="email"
+            placeholder="example@rocketseat.com.br"
+          />
+        </section>
       </Form>
     </FormContainer>
   );

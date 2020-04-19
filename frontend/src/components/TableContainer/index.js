@@ -6,10 +6,10 @@ const Table = styled.table`
   border-spacing: 0 20px;
 
   thead th {
+    font-size: 16px;
     text-align: left;
     color: #444;
     font-weight: bold;
-    font-size: 16px;
     padding: 6px 20px 0;
 
     &:last-child {
@@ -18,10 +18,10 @@ const Table = styled.table`
   }
 
   tbody td {
-    background: #fff;
-    border-radius: 4px;
     height: 57px;
     padding: 6px 15px;
+    border-radius: 4px;
+    background: #fff;
     color: #666;
     font-size: 16px;
 

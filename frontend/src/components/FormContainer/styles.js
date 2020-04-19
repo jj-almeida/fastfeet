@@ -22,4 +22,11 @@ export const Wrapper = styled.div`
       display: flex;
     }
   }
+
+  section {
+    margin-top: 28px;
+    padding: 30px;
+    border-radius: 4px;
+    background: #fff;
+  }
 `;

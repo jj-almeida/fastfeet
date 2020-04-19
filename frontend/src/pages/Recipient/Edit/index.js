@@ -12,7 +12,12 @@ import FormContainer from '~/components/FormContainer';
 import Input from '~/components/Input';
 import InputMask from '../InputMask';
 
-import { BackButton, SaveButton } from './styles';
+import {
+  BackButton,
+  SaveButton,
+  AddressContainer1,
+  AddressContainer2,
+} from './styles';
 
 export default function Edit({ match }) {
   const formRef = useRef();
@@ -86,18 +91,25 @@ export default function Edit({ match }) {
           </div>
         </header>
 
-        <Input label="Nome" name="name" placeholder="Ludwig van Beethoven" />
-        <Input label="Rua" name="street" placeholder="Rua Beethoven" />
-        <Input label="Número" name="number" placeholder="1729" />
-        <Input label="Complemento" name="complement" />
-        <Input label="Cidade" name="city" placeholder="Diadema" />
-        <Input label="Estado" name="state" placeholder="São Paulo" />
-        <InputMask
-          label="CEP"
-          name="postal_code"
-          placeholder="09960-580"
-          mask="99999-999"
-        />
+        <section>
+          <Input label="Nome" name="name" placeholder="Ludwig van Beethoven" />
+          <AddressContainer1>
+            <Input label="Rua" name="street" placeholder="Rua Beethoven" />
+            <Input label="Número" name="number" placeholder="1729" />
+            <Input label="Complemento" name="complement" />
+          </AddressContainer1>
+          <AddressContainer2>
+            <Input label="Cidade" name="city" placeholder="Diadema" />
+            <Input label="Estado" name="state" placeholder="São Paulo" />
+            <InputMask
+              label="CEP"
+              name="postal_code"
+              placeholder="09960-580"
+              mask="99999-999"
+              maskChar=""
+            />
+          </AddressContainer2>
+        </section>
       </Form>
     </FormContainer>
   );

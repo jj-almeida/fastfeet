@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
 
-// import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { MdPhotoSizeSelectActual } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -55,7 +54,7 @@ export default function AvatarInput({ name, avatar }) {
         ) : (
           <div>
             <MdPhotoSizeSelectActual size={50} color="#DDDDDD" />
-            <span className="addPicture">Adicionar foto</span>
+            <strong className="addPicture">Adicionar foto</strong>
           </div>
         )}
         <input

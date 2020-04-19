@@ -11,7 +11,7 @@ import FormContainer from '~/components/FormContainer';
 import Input from '~/components/Input';
 import AsyncSelectInput from '../AsyncSelect';
 
-import { BackButton, SaveButton } from './styles';
+import { BackButton, SaveButton, NameContainer } from './styles';
 
 export default function Add() {
   const formRef = useRef();
@@ -71,21 +71,25 @@ export default function Add() {
           </div>
         </header>
 
-        <AsyncSelectInput
-          label="Destinatário"
-          name="recipient_id"
-          endpoint="recipients"
-          placeholder="Ludvig van Beethoven"
-        />
+        <section>
+          <NameContainer>
+            <AsyncSelectInput
+              label="Destinatário"
+              name="recipient_id"
+              endpoint="recipients"
+              placeholder="Ludvig van Beethoven"
+            />
 
-        <AsyncSelectInput
-          label="Entregador"
-          name="deliveryman_id"
-          endpoint="deliveryman"
-          placeholder="John Doe"
-        />
+            <AsyncSelectInput
+              label="Entregador"
+              name="deliveryman_id"
+              endpoint="deliveryman"
+              placeholder="John Doe"
+            />
+          </NameContainer>
 
-        <Input label="Produto" name="product" placeholder="Yamaha SX7" />
+          <Input label="Produto" name="product" placeholder="Yamaha SX7" />
+        </section>
       </Form>
     </FormContainer>
   );
