@@ -8,6 +8,7 @@
 
 ## Technologies
 * [Node.js](https://nodejs.org/en/)
+  * [Express](https://expressjs.com/)
 * [React](https://reactjs.org/)
   * [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 * [React Native](https://reactnative.dev/)
@@ -19,3 +20,44 @@ To run this application you will need:
 * [Docker](https://https://www.docker.com/) (Optional)
 * [Yarn](https://yarnpkg.com/) (Optional)
 
+## How to run this project
+To run this project, follow the nexts steps in your terminal
+
+```bash
+$ git clone https://github.com/almeida-joseantonio/fastfeet
+
+$ cd bootcamp-fastfeet
+
+# Install dependencies for backend
+$ cd backend
+$ yarn
+
+# It is necessary  postgres database instance.
+
+$ yarn sequelize db:migrate
+$ yarn sequelize db:seed:all
+
+# Run the backend server for the development environment
+$ yarn dev
+
+# Run the process to manage e-mail sending:
+$ yarn queue 
+
+# Install dependencies for frontend
+$ cd frontend
+$ yarn
+
+# Run the frontend server for the development environment
+$ yarn start
+
+# Install dependencies for mobile
+$ cd mobile
+$ yarn
+
+# The mobile app is available for Android
+# Run the app
+$ react-native run-android
+
+# Run the mobile server for the development environment
+$ react-native start
+```
