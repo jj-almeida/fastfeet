@@ -8,9 +8,9 @@
 
 ## Technologies
 * [Node.js](https://nodejs.org/en/)
-* React
-  * React Hooks
-* React Native
+* [React](https://reactjs.org/)
+  * [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+* [React Native](https://reactnative.dev/)
 
 ## Requirements
 To run this application you will need:
