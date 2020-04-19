@@ -10,6 +10,7 @@ import history from '~/services/history';
 
 import FormContainer from '~/components/FormContainer';
 import Input from '~/components/Input';
+import InputMask from '../InputMask';
 
 import { BackButton, SaveButton } from './styles';
 
@@ -91,7 +92,12 @@ export default function Edit({ match }) {
         <Input label="Complemento" name="complement" />
         <Input label="Cidade" name="city" placeholder="Diadema" />
         <Input label="Estado" name="state" placeholder="São Paulo" />
-        <Input label="CEP" name="postal_code" placeholder="09960-580" />
+        <InputMask
+          label="CEP"
+          name="postal_code"
+          placeholder="09960-580"
+          mask="99999-999"
+        />
       </Form>
     </FormContainer>
   );
