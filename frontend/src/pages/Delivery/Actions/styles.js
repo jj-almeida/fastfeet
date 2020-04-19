@@ -2,36 +2,24 @@ import styled from 'styled-components';
 
 export const Container = styled.td`
   position: relative;
+
   button {
-    background: none;
     border: 0;
+    background: none;
   }
 `;
 
 export const ActionList = styled.div`
+  display: ${props => (props.visible ? 'block' : 'none')} !important;
   position: absolute;
-  right: -63px;
-  z-index: 2;
-  box-shadow: 0px 0px 2px #00000026;
+  right: -60px;
+  border: 1px solid #eee;
   background: #fff;
   padding: 15px 10px;
   border-radius: 4px;
+  z-index: 2;
   min-width: 150px;
-  white-space: nowrap;
-  margin-top: 5px;
-  display: ${props => (props.visible ? 'block' : 'none')} !important;
-  flex-direction: column;
-  &::before {
-    content: '';
-    position: absolute;
-    left: calc(50% + 3px);
-    top: -8px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid #f1f1f1;
-  }
+
   div {
     width: 100%;
     & + div {
@@ -39,14 +27,16 @@ export const ActionList = styled.div`
       margin-top: 5px;
       padding-top: 5px;
     }
+
     button,
     a {
-      border: 0;
-      background: none;
-      color: #999;
-      font-size: 16px;
       display: flex;
       align-items: center;
+      font-size: 16px;
+      color: #999;
+      border: 0;
+      background: none;
+
       svg {
         margin-right: 10px;
       }
@@ -59,6 +49,7 @@ export const DetailContainer = styled.div`
   width: 450px;
   background: #fff;
   border-radius: 4px;
+  border: 1px solid #eee;
 
   strong {
     font-size: 14px;
@@ -86,11 +77,11 @@ export const DetailContainer = styled.div`
   }
 
   img {
+    text-align: center;
+    align-self: center;
     margin-top: 5px;
     height: 150px;
     width: 300px;
-    align-self: center;
-    text-align: center;
     background: #eee;
   }
 `;

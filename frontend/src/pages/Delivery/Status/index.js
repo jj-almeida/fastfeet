@@ -32,8 +32,10 @@ export default function Status({ delivery }) {
 
   return (
     <Container color={Tstatus.color} background={Tstatus.background}>
-      <MdFiberManualRecord />
-      <span>{Tstatus.text}</span>
+      <div>
+        <MdFiberManualRecord />
+        <span>{Tstatus.text}</span>
+      </div>
     </Container>
   );
 }

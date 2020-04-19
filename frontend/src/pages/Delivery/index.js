@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
-import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { MdAdd, MdSearch, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -14,10 +14,6 @@ import TableContainer from '~/components/TableContainer';
 import Item from './Item';
 
 import { AddButton, Footer } from './styles';
-
-/**
- * TODO: Arrumar estilo Input SearchBar
- */
 
 export default function Delivery() {
   const [loading, setLoading] = useState(false);
@@ -75,11 +71,14 @@ export default function Delivery() {
 
       <div>
         <Form onSubmit={handleSearchDelivery}>
-          <Input
-            name="search"
-            type="search"
-            placeholder="Buscar por encomendas"
-          />
+          <div>
+            <MdSearch size={24} color="#999" />
+            <Input
+              name="search"
+              type="search"
+              placeholder="Buscar por encomendas"
+            />
+          </div>
         </Form>
 
         <AddButton onClick={() => history.push('deliveries/new')} type="button">

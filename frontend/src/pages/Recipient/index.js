@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
-import { MdAdd, MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { MdAdd, MdSearch, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -71,11 +71,14 @@ export default function Recipient() {
 
       <div>
         <Form onSubmit={handleSearchRecipient}>
-          <Input
-            name="search"
-            type="search"
-            placeholder="Buscar por destinatários"
-          />
+          <div>
+            <MdSearch size={24} color="#999" />
+            <Input
+              name="search"
+              type="search"
+              placeholder="Buscar por destinatários"
+            />
+          </div>
         </Form>
 
         <AddButton onClick={() => history.push('recipients/new')} type="button">

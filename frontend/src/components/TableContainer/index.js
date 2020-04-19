@@ -10,7 +10,7 @@ const Table = styled.table`
     color: #444;
     font-weight: bold;
     font-size: 16px;
-    padding: 6px 15px 0;
+    padding: 6px 20px 0;
 
     &:last-child {
       text-align: right;
