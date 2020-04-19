@@ -7,7 +7,7 @@
 </h3>
 
 ## Technologies
-* Node.js
+* [Node.js] (https://nodejs.org/en/)
 * React
   * React Hooks
 * React Native
