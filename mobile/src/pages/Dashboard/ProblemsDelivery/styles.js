@@ -41,9 +41,11 @@ export const Card = styled.View`
 `;
 
 export const Problem = styled.Text`
-  margin-right: 10px;
+  color: #999;
 `;
-export const Date = styled.Text``;
+export const Date = styled.Text`
+  color: #c1c1c1;
+`;
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,

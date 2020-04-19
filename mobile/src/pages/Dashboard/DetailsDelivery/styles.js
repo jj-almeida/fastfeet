@@ -89,7 +89,7 @@ export const ActionButton = styled.TouchableOpacity`
   width: ${(Dimensions.get('window').width - 20) / 3}px;
   align-items: center;
   justify-content: center;
-  border-right-color: #0000001a;
+  border-right-color: #ddd;
   border-style: solid;
   border-right-width: 1px;
 `;

@@ -35,7 +35,6 @@ export default function ConfirmDelivery({ route }) {
       const options = {
         quality: 0.5,
         base64: false,
-        width: 800,
       };
       const dataCamera = await camera.takePictureAsync(options);
 
@@ -63,6 +62,8 @@ export default function ConfirmDelivery({ route }) {
           signature_id: id,
         }
       );
+
+      Alert.alert('Sucesso!', 'Entrega realizada com sucesso!');
 
       navigate('Dashboard');
     } catch ({ response }) {
@@ -99,7 +100,7 @@ export default function ConfirmDelivery({ route }) {
             </CameraButton>
           ) : (
             <CameraButton onPress={handleTakePicture}>
-              <Icon name="camera" size={24} color="#fff" />
+              <Icon name="photo-camera" size={24} color="#fff" />
             </CameraButton>
           )}
         </CameraView>
