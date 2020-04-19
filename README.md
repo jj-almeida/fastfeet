@@ -3,5 +3,7 @@
 </h1>
 
 <h3 align="center">
-  Desafio 9: FastFeet, front-end web
+  A fictional app to manage deliveries
 </h3>
+
+## Requirements
