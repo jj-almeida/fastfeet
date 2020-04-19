@@ -6,6 +6,12 @@
   A fictional app to manage deliveries
 </h3>
 
+## Technologies
+* Node.js
+* React
+  * React Hooks
+* React Native
+
 ## Requirements
 To run this application you will need:
 * [Git](https://git-scm.com)
